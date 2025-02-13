@@ -16,6 +16,7 @@ import java.time.Duration;
 public class BaseHelper {
     protected WebDriver driver;
     Logger logger = LoggerFactory.getLogger(BaseHelper.class);
+
     public BaseHelper(WebDriver driver) {
         this.driver = driver;
     }
@@ -26,7 +27,7 @@ public class BaseHelper {
 
     public boolean isAlertPresent() {
         Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.alertIsPresent());
-        if(alert == null){
+        if (alert == null) {
             return false;
         } else {
             driver.switchTo().alert().accept();
@@ -56,6 +57,10 @@ public class BaseHelper {
             System.out.println("Alert was present and accepted.");
         } catch (NoAlertPresentException e) {
             // No alert, proceed with screenshot capture
+        } catch (TimeoutException e) {
+            // Обработка TimeoutException, если alert так и не появился
+
+            System.out.println("No alert present within timeout, proceeding to take screenshot.");
         }
 
         // Capture screenshot
