@@ -20,6 +20,10 @@ test {
     useTestNG()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 def registerTask(String taskName, String suitePath) {
     tasks.register(taskName, Test) {
         useTestNG() {
